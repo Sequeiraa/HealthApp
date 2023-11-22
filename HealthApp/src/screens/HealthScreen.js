@@ -1,21 +1,79 @@
 import React, { useState } from 'react';
-import { Button, Input } from 'react-native-elements';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-function HealthStatusScreen() {
-  const [bloodPressure, setBloodPressure] = useState('');
-  const [bloodSugar, setBloodSugar] = useState('');
+const HealthInputScreen = ({ navigation }) => {
+  const [weight, setWeight] = useState('');
+  const [height, setHeight] = useState('');
+  const [age, setAge] = useState('');
 
-  const handleSave = () => {
-    // Lógica para guardar los datos
+  const handleSubmit = () => {
+    // Aquí puedes realizar alguna acción con los datos ingresados
+    console.log('Datos de salud ingresados:');
+    console.log('Peso:', weight);
+    console.log('Altura:', height);
+    console.log('Edad:', age);
   };
 
   return (
-    <>
-      <Input placeholder="Presión arterial" onChangeText={setBloodPressure} />
-      <Input placeholder="Nivel de azúcar en sangre" onChangeText={setBloodSugar} />
-      <Button title="Guardar" onPress={handleSave} />
-    </>
+    <View style={styles.container}>
+      <Text style={styles.label}>Ingrese sus datos de salud:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Peso (kg)"
+        keyboardType="numeric"
+        value={weight}
+        onChangeText={(text) => setWeight(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Altura (cm)"
+        keyboardType="numeric"
+        value={height}
+        onChangeText={(text) => setHeight(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Edad"
+        keyboardType="numeric"
+        value={age}
+        onChangeText={(text) => setAge(text)}
+      />
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={styles.buttonText}>Continuar</Text>
+      </TouchableOpacity>
+    </View>
   );
-}
+};
 
-export default HealthStatusScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  input: {
+    height: 40,
+    width: '80%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  button: {
+    backgroundColor: '#4CAF50',
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+});
+
+export default HealthInputScreen;

@@ -8,7 +8,9 @@ import {
 } from "react-native";
 import { validateEmail } from "../utils/validation";
 import firebase from "../utils/firebase"
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "../components/Auth";
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 export default function LoginScreen(props) {
   const { changeForm } = props;
   const [formData, setFormData] = useState(defaultValue());

@@ -1,24 +1,41 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from './src/screens/LoginScreen';
-import HealthStatusScreen from './src/screens/HealthScreen';
-import WeightControlScreen from './src/screens/ExerciseScreen';
-import ExerciseRoutineScreen from './src/screens/HealthScreen';
-
-const Stack = createStackNavigator();
-
-function App() {
+import React, { useState, useEffect } from "react";
+import { StyleSheet, SafeAreaView, StatusBar, LogBox } from "react-native";
+import base64 from "react-native-base64";
+import Auth from "./src/components/Auth";
+import firebase from "./src/utils/firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import ListBirthday from "./src/components/ListBirthday";
+function btoa(data) {
+  return new base64(data, "binary").toString("base64");
+}
+function atob(data) {
+  return new base64(data, "base64").toString("binary");
+}
+LogBox.ignoreAllLogs(["Setting a timer"]);
+export default function App() {
+  const [user, setUser] = useState(undefined);
+  useEffect(() => {
+    const auth = getAuth();
+    const listener = onAuthStateChanged(auth, async (user) => {
+      setUser(user);
+    });
+    return () => {
+      listener();
+    };
+  }, []);
+  if (user === undefined) return null;
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="HealthStatus" component={HealthStatusScreen} />
-        <Stack.Screen name="WeightControl" component={WeightControlScreen} />
-        <Stack.Screen name="ExerciseRoutine" component={ExerciseRoutineScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <StatusBar barStyle="light-content" />
+      <SafeAreaView style={styles.background}>
+        {user ? <ListBirthday user={user} /> : <Auth />}
+      </SafeAreaView>
+    </>
   );
 }
-
-export default App;
+const styles = StyleSheet.create({
+  background: {
+    backgroundColor: "#15212b",
+    height: "100%",
+  },
+});

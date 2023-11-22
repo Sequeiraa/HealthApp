@@ -6,9 +6,8 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { validateEmail } from "../utils/validations";
+import { validateEmail } from "../utils/validation";
 import firebase from "../utils/firebase"
-import { auth } from "../firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 export default function RegisterScreen(props) {
   const { changeForm } = props;

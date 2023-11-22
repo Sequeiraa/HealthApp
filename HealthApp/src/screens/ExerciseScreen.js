@@ -1,26 +1,34 @@
-import React, { useState } from 'react';
-import { Button, FlatList } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-function ExerciseRoutineScreen() {
-  const [routines, setRoutines] = useState([
-    { name: 'Rutina 1', description: 'Descripción' },
-    { name: 'Rutina 2', description: 'Descripción' },
-    // Más rutinas...
-  ]);
-
-  const handleSelectRoutine = (routine) => {
-    // Lógica para seleccionar una rutina
-  };
-
+const ExerciseScreen = () => {
   return (
-    <FlatList
-      data={routines}
-      renderItem={({ item }) => (
-        <Button title={item.name} onPress={() => handleSelectRoutine(item)} />
-      )}
-      keyExtractor={item => item.name}
-    />
+    <View style={styles.container}>
+      <Text style={styles.heading}>Rutina de Ejercicios</Text>
+  
+      <Text style={styles.exerciseText}>Ejercicio A</Text>
+      <Text style={styles.exerciseText}>Ejercicio B</Text>
+      <Text style={styles.exerciseText}>Ejercicio C</Text>
+    </View>
   );
-}
+};
 
-export default ExerciseRoutineScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  heading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  exerciseText: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+});
+
+export default ExerciseScreen;

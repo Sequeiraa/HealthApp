@@ -9,7 +9,6 @@ export default function Auth() {
   };
   return (
     <View style={styles.view}>
-      <Image style={styles.logo} source={require("../assets/logo.png")} />
       {isLogin ? (
         <LoginScreen changeForm={changeForm} />
       ) : (
